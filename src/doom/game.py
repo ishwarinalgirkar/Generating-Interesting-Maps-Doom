@@ -432,7 +432,7 @@ class Game(object):
                 args.append('-join 127.0.0.1:%i' % port)
         else:
             args.append('-host 1')
-
+        #self.game.set_window_visible(False)
         # screen buffer / depth buffer / labels buffer / mode
         screen_resolution = getattr(ScreenResolution, self.screen_resolution)
         self.game.set_screen_resolution(screen_resolution)
@@ -443,6 +443,7 @@ class Game(object):
         self.game.set_mode(getattr(Mode, self.mode))
 
         # rendering options
+        
         self.game.set_render_hud(self.render_hud)
         self.game.set_render_minimal_hud(self.render_minimal_hud)
         self.game.set_render_crosshair(self.render_crosshair)
@@ -487,6 +488,7 @@ class Game(object):
         # doom skill (https://zdoom.org/wiki/GameSkill)
         self.game.set_doom_skill(self.doom_skill + 1)
 
+        self.game.set_window_visible(False)
         # start the game
         self.game.init()
 

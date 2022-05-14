@@ -1,4 +1,7 @@
 #!/bin/bash
+PYTHON="/usr/bin/python3"
+STRING="Launching game..."
+GAME_ROOT="/home/ianal/work/Gaming/Doom-Map-Generation/Arnold"
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -54,13 +57,17 @@ fi
 P=$((A+H))
 
 if [ "$1" == "defend_the_center" ]; then
-python arnold.py --exp_name test --main_dump_path $PWD/dumped \
+pushd . > /dev/null 2>&1
+cd $GAME_ROOT
+echo $STRING
+$PYTHON arnold.py --exp_name test --main_dump_path $PWD/dumped \
 --scenario defend_the_center --frame_skip 2 --action_combinations "turn_lr+attack" \
 --reload $PWD/pretrained/defend_the_center.pth --evaluate 1 --visualize 1 --gpu_id -1
+popd > /dev/null 2>&1
 fi
 
 if [ "$1" == "health_gathering" ]; then
-python arnold.py --exp_name test --main_dump_path $PWD/dumped \
+python3 arnold.py --exp_name test --main_dump_path $PWD/dumped \
 --scenario health_gathering --supreme 1 \
 --frame_skip 4 --action_combinations "move_fb;turn_lr" \
 --reload $PWD/pretrained/health_gathering.pth --evaluate 1 --visualize 1 --gpu_id -1
@@ -71,7 +78,7 @@ echo "Number of agents: ${A}"
 echo "Number of bots  : ${B}"
 echo "Map ID          : 1"
 echo "Human player    : ${H}"
-python arnold.py --exp_name test --main_dump_path $PWD/dumped \
+python3 arnold.py --exp_name test --main_dump_path $PWD/dumped \
 --frame_skip 3 --action_combinations "attack+move_lr;turn_lr;move_fb" \
 --network_type "dqn_rnn" --recurrence "lstm" --n_rec_layers 1 --hist_size 4 --remember 1 \
 --labels_mapping "" --game_features "target,enemy" --bucket_size "[10, 1]" --dropout 0.5 \
@@ -86,7 +93,7 @@ echo "Number of agents: ${A}"
 echo "Number of bots  : ${B}"
 echo "Map ID          : ${M}"
 echo "Human player    : ${H}"
-python arnold.py --exp_name test --main_dump_path $PWD/dumped \
+python3 arnold.py --exp_name test --main_dump_path $PWD/dumped \
 --frame_skip 4 --action_combinations "move_fb+move_lr;turn_lr;attack" \
 --network_type "dqn_rnn" --recurrence "lstm" --n_rec_layers 1 --hist_size 4 --remember 1 \
 --labels_mapping "" --game_features "target,enemy" --bucket_size "[10, 1]" --dropout 0.5 \
@@ -101,7 +108,7 @@ echo "Number of agents: ${A}"
 echo "Number of bots  : ${B}"
 echo "Map ID          : 7"
 echo "Human player    : ${H}"
-python arnold.py --exp_name test --main_dump_path . \
+python3 arnold.py --exp_name test --main_dump_path . \
 --frame_skip 3 --action_combinations "move_fb+move_lr;turn_lr;attack" \
 --network_type "dqn_rnn" --recurrence "lstm" --n_rec_layers 1 --hist_size 6 --remember 1 \
 --labels_mapping "0" --game_features "target,enemy" --bucket_size "[10, 1]" --dropout 0.5 \
