@@ -124,7 +124,8 @@ class Game(object):
                5 - light brown, 6 - light red, 7 - light blue
         """
         # game resources
-        game_filename = '%s.wad' % ('freedoom2' if freedoom else 'Doom2')
+        game_filename = '%s.wad' % ('doom2' if freedoom else 'Doom2')
+        #game_filename = '%s.wad' % ('freedoom2' if freedoom else 'Doom2')
         self.scenario_path = os.path.join(RESOURCES_DIR, 'scenarios', '%s.wad' % scenario)
         self.game_path = os.path.join(RESOURCES_DIR, game_filename)
 
